@@ -17,7 +17,7 @@ pip install -r requirements.txt
 create a database file for sqlalchemy  
 > I use sqlitedb.db  
 ```
-touch sqlitedb.db  
+python createDB.py
 python app.py
 ```
 
