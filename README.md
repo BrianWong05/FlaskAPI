@@ -46,8 +46,8 @@ python generate_dummy_data.py
 ```  
   
 # Function
-## Create User
 > Example  
+## Create User
 ```python
 import requests  
 data = {
@@ -59,5 +59,11 @@ data = {
 response = requests.post("127.0.0.1:5000/user", data = data)   
 print(response.json())  
 ```
-{'message': 'User created'}
+{'message': 'User created'}  
 
+## Get all User
+```python
+import requests  
+response = requests.get("http://127.0.0.1:5000/user/descending_id")  
+print(response.json())  
+```
