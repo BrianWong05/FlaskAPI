@@ -22,7 +22,7 @@ python app.py
 # GET and POST
 use [Postman](https://www.postman.com/)  
 or  
-usePython requests  
+use Python [requests](https://docs.python-requests.org/en/latest/)  
   
 # Create dummy data
 create sqlitedb.db first
@@ -31,7 +31,6 @@ python generate_dummy_data.py
 ```  
   
 # Function
-> Example  
 ```python
 import requests
 
@@ -49,7 +48,6 @@ data = {
 response = requests.post( url+"/user", data = data)   
 print(response.json())  
 ```
-{'message': 'User created'}  
 
 ## Get User
 ### All
