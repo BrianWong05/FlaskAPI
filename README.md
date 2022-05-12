@@ -27,7 +27,7 @@ use <https://www.postman.com/> to GET and POST
 ```python
 # GET
 import requests  
-response = requests.get("127.0.0.1:5000/route")  
+response = requests.get("http://127.0.0.1:5000/route")  
 print(response.json())  
   
 # POST
@@ -35,7 +35,7 @@ import requests
 data = {
     # your data
 }
-response = requests.post("127.0.0.1:5000/route", data = data)   
+response = requests.post("http://127.0.0.1:5000/route", json = data)   
 print(response.json())  
 ```
   
@@ -44,3 +44,20 @@ create sqlitedb.db first
 ```python
 python generate_dummy_data.py
 ```  
+  
+# Function
+## Create User
+> Example  
+```python
+import requests  
+data = {
+    "name": "Bob",
+    "email": "bob@testing.123",
+    "address": "456 Street",
+    "phone": "61234567"
+}
+response = requests.post("127.0.0.1:5000/user", data = data)   
+print(response.json())  
+```
+{'message': 'User created'}
+
