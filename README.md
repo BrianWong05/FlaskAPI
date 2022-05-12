@@ -71,7 +71,7 @@ print(response.json())
 {'message': 'User created'}  
 
 ## Get User
-## All
+### All
 ```python
 # Descending order
 response = requests.get( url+"/user/descending_id")  
@@ -81,7 +81,7 @@ print(response.json())
 response = requests.get( url+"/user/ascending_id")  
 print(response.json())  
 ```
-## One
+### One
 ```python
 id = 1
 response = requests.get( url+"/user/"+id )  
