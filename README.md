@@ -15,7 +15,7 @@ python app.py
 
 # GET and POST
 use <https://www.postman.com/> to GET and POST  
-or  
+> or  
 ```python
 # GET
 import requests  
