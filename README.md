@@ -2,14 +2,15 @@ An example of how to use FlaskAPI with database
 > I use sqlalchemy for flask
 # Installation
 ```
-python3 -m venv .venv  
   
 # linux  
+python3 -m venv .venv
 source .venv/bin/activate  
+pip install -r requirements.txt  
   
 # windows  
+python -m venv .venv  
 .venv/Scripts/activate
-
 pip install -r requirements.txt  
 ```
 # RUN
