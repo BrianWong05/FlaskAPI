@@ -2,7 +2,6 @@ An example of how to use FlaskAPI with database
 > I use sqlalchemy for flask
 # Installation
 ```
-  
 # linux  
 python3 -m venv .venv
 source .venv/bin/activate  
@@ -15,14 +14,13 @@ pip install -r requirements.txt
 ```
 # RUN
 create a database file for sqlalchemy  
-> I use sqlitedb.db  
 ```
 python createDB.py
 python app.py
 ```
 
 # GET and POST
-use [Postman](https://www.postman.com/) to GET and POST  
+use [Postman](https://www.postman.com/)  
 or  
 usePython requests  
   
@@ -71,3 +69,37 @@ response = requests.get( url+"/user/"+id )
 print(response.json())  
 ```
 
+## Delete User
+```python
+id = 1
+response = requests.delete( url+"/user/"+id )  
+print(response.json())  
+```
+
+## Create Blog Post
+```python  
+id = 1
+data = {
+    "title": "Test",
+    "body": "This is a test blog post."
+}
+response = requests.post( url+"/blog_post/"+id, data = data)   
+print(response.json())  
+```
+
+## Get One Blog Post
+```python  
+blog_post_id = 1
+data = {
+    "title": "Test",
+    "body": "This is a test blog post."
+}
+response = requests.get( url+"/blog_post/"+blog_post_id )   
+print(response.json())  
+```
+
+## Delete last 10 Blog Post
+```python  
+response = requests.get( url+"/blog_post/delete_last_10" )   
+print(response.json())  
+```
