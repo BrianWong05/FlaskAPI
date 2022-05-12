@@ -22,26 +22,9 @@ python app.py
 ```
 
 # GET and POST
-use <https://www.postman.com/> to GET and POST  
+use [Postman](https://www.postman.com/) to GET and POST  
 > or  
-```python
-# GET
-import requests  
-
-url = "http://127.0.0.1:5000"
-route = "/route"
-
-response = requests.get( url+route )  
-print(response.json())  
-  
-# POST
-import requests  
-data = {
-    # your data
-}
-response = requests.post( url+route , json = data)   
-print(response.json())  
-```
+usePython requests  
   
 # Create dummy data
 create sqlitedb.db first
