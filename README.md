@@ -6,7 +6,8 @@ python3 -m venv .venv
 source .venv/bin/activate  
 ```
 # RUN
-create sqlitedb.db  
+create a database file for sqlalchemy  
+> I use sqlitedb.db  
 ```
 touch sqlitedb.db  
 python app.py
