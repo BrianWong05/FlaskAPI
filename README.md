@@ -66,4 +66,9 @@ print(response.json())
 import requests  
 response = requests.get("http://127.0.0.1:5000/user/descending_id")  
 print(response.json())  
+
+
+import requests  
+response = requests.get("http://127.0.0.1:5000/user/ascending_id")  
+print(response.json())  
 ```
