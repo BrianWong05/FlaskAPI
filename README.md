@@ -4,6 +4,7 @@ An example of how to use FlaskAPI with database
 ```
 python3 -m venv .venv  
 source .venv/bin/activate  
+pip install -r requirements.txt  
 ```
 # RUN
 create a database file for sqlalchemy  
