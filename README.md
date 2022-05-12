@@ -30,3 +30,8 @@ data = {
 response = requests.post("127.0.0.1:5000/route", data = data)   
 print(response.json())  
 ```
+  
+# Create dummy data
+```python
+python generate_dummy_data.py
+```  
