@@ -27,7 +27,11 @@ use <https://www.postman.com/> to GET and POST
 ```python
 # GET
 import requests  
-response = requests.get("http://127.0.0.1:5000/route")  
+
+url = "http://127.0.0.1:5000"
+route = "/route"
+
+response = requests.get( url+route )  
 print(response.json())  
   
 # POST
@@ -35,7 +39,7 @@ import requests
 data = {
     # your data
 }
-response = requests.post("http://127.0.0.1:5000/route", json = data)   
+response = requests.post( url+route , json = data)   
 print(response.json())  
 ```
   
@@ -47,29 +51,40 @@ python generate_dummy_data.py
   
 # Function
 > Example  
-## Create User
 ```python
-import requests  
+import requests
+
+url = "http://127.0.0.1:5000"
+
+```
+## Create User
+```python  
 data = {
     "name": "Bob",
     "email": "bob@testing.123",
     "address": "456 Street",
     "phone": "61234567"
 }
-response = requests.post("127.0.0.1:5000/user", data = data)   
+response = requests.post( url+"/user", data = data)   
 print(response.json())  
 ```
 {'message': 'User created'}  
 
-## Get all User
+## Get User
+## All
 ```python
 # Descending order
-import requests  
-response = requests.get("http://127.0.0.1:5000/user/descending_id")  
+response = requests.get( url+"/user/descending_id")  
 print(response.json())  
 
 # Ascending order
-import requests  
-response = requests.get("http://127.0.0.1:5000/user/ascending_id")  
+response = requests.get( url+"/user/ascending_id")  
 print(response.json())  
 ```
+## One
+```python
+id = 1
+response = requests.get( url+"/user/"+id )  
+print(response.json())  
+```
+
