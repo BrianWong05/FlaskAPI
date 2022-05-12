@@ -32,6 +32,7 @@ print(response.json())
 ```
   
 # Create dummy data
+create sqlitedb.db first
 ```python
 python generate_dummy_data.py
 ```  
