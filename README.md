@@ -45,7 +45,7 @@ data = {
     "address": "456 Street",
     "phone": "61234567"
 }
-response = requests.post( url+"/user", data = data)   
+response = requests.post( url+"/user", json = data)   
 print(response.json())  
 ```
 
@@ -63,14 +63,14 @@ print(response.json())
 ### One
 ```python
 id = 1
-response = requests.get( url+"/user/"+id )  
+response = requests.get( url+"/user/"+str(id) )  
 print(response.json())  
 ```
 
 ## Delete User
 ```python
 id = 1
-response = requests.delete( url+"/user/"+id )  
+response = requests.delete( url+"/user/"+str(id) )  
 print(response.json())  
 ```
 
@@ -81,18 +81,14 @@ data = {
     "title": "Test",
     "body": "This is a test blog post."
 }
-response = requests.post( url+"/blog_post/"+id, data = data)   
+response = requests.post( url+"/blog_post/"+str(id), json = data)   
 print(response.json())  
 ```
 
 ## Get One Blog Post
 ```python  
 blog_post_id = 1
-data = {
-    "title": "Test",
-    "body": "This is a test blog post."
-}
-response = requests.get( url+"/blog_post/"+blog_post_id )   
+response = requests.get( url+"/blog_post/"+str(blog_post_id) )   
 print(response.json())  
 ```
 
