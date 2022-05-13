@@ -1,16 +1,10 @@
 import random
 from sqlite3 import Connection as SQLite3Connection
-from unicodedata import numeric
 from flask import Flask, request, jsonify
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from algo import linked_list
-from algo import hash_table
-from algo import binary_search_tree
-from algo import custom_q
-from algo import stack
 
 app = Flask(__name__)
 
@@ -62,10 +56,10 @@ def create_user():
 @app.route("/user/descending_id", methods=['GET'])
 def get_all_user_descending():
     users = User.query.all()
-    all_users_ll = linked_list.LinkedList()
+    all_users = []
 
     for user in users:
-        all_users_ll.insert_beginning(
+        all_users.insert(0,
             {
                 "id": user.id,
                 "name": user.name,
@@ -75,15 +69,15 @@ def get_all_user_descending():
             }
         )
 
-    return jsonify(all_users_ll.to_list()), 200
+    return jsonify(all_users), 200
 
 @app.route("/user/ascending_id", methods=['GET'])
 def get_all_user_ascending():
     users = User.query.all()
-    all_users_ll = linked_list.LinkedList()
+    all_users = []
 
     for user in users:
-        all_users_ll.insert_at_end(
+        all_users.append(
             {
                 "id": user.id,
                 "name": user.name,
@@ -93,27 +87,23 @@ def get_all_user_ascending():
             }
         )
 
-    return jsonify(all_users_ll.to_list()), 200
+    return jsonify(all_users), 200
 
-@app.route("/user/<user_id>", methods=['GET'])
+@app.route("/user/<int:user_id>", methods=['GET'])
 def get_one_user(user_id):
     users = User.query.all()
-    all_users_ll = linked_list.LinkedList()
 
     for user in users:
-        all_users_ll.insert_beginning(
-            {
+        if user.id == user_id:
+            returnUser =  {
                 "id": user.id,
                 "name": user.name,
                 "email": user.email,
                 "address": user.address,
                 "phone": user.phone
             }
-        )
+            return jsonify(returnUser), 200
 
-    user = all_users_ll.get_user_by_id(user_id)
-
-    return jsonify(user), 200
 
 @app.route("/user/<user_id>", methods=['DELETE'])
 def delete_user(user_id):
@@ -130,89 +120,46 @@ def create_blog_post(user_id):
     if not user:
         return jsonify({"message": "user does not exists"}), 400
 
-    ht = hash_table.HashTable(10)
-
-    ht.add_key_value("title", data["title"])
-    ht.add_key_value("body", data["body"])
-    ht.add_key_value("date", now)
-    ht.add_key_value("user_id", user_id)
-
     new_blog_post = BlogPost(
-        title=ht.get_value("title"),
-        body=ht.get_value("body"),
-        date=ht.get_value("date"),
-        user_id=ht.get_value("user_id")
+        title=data["title"],
+        body=data["body"],
+        date=now,
+        user_id=user_id
     )
     db.session.add(new_blog_post)
     db.session.commit()
     return jsonify({"message": "new blog post created"}), 200
 
 
-@app.route("/blog_post/<blog_post_id>", methods=['GET'])
+@app.route("/blog_post/<string:blog_post_id>", methods=['GET'])
 def get_one_blog_posts(blog_post_id):
     blog_post = BlogPost.query.all()
     random.shuffle(blog_post)
 
-    bst = binary_search_tree.BinarySearchTree()
-
     for post in blog_post:
-        bst.insert({
-            "id" : post.id,
-            "title" : post.title,
-            "body" : post.body,
-            "user_id" : post.user_id,
-        })
-
-    post = bst.search(blog_post_id)
-
-    if not post:
-        return jsonify({"message" : "post not found"})
-    else:
-        return jsonify(post)
-
-@app.route("/blog_post/numeric_body", methods=['GET'])
-def get_numeric_posts_bodies():
-    blog_posts = BlogPost.query.all()
-
-    q = custom_q.Queue()
-
-    for post in blog_posts:
-        q.enqueue(post)
-
-    return_list = []
-
-    for _ in range(len(blog_posts)):
-        post = q.dequeue()
-        numeric_body = 0
-        for char in post.data.body:
-            numeric_body += ord(char)
-
-        post.data.body = numeric_body
-
-        return_list.append(
-            {
-                "id" : post.data.id,
-                "title" : post.data.title, 
-                "body" : post.data.body,
-                "user_id" : post.data.user_id
+        if str(post.id) == blog_post_id:
+            returnPost = {
+                "id": post.id,
+                "title": post.title,
+                "body" : post.body,
+                "user_id" : post.user_id,
             }
-        )
+            return jsonify(returnPost)
 
-    return jsonify(return_list)
+    return jsonify({"message" : "post not found"})
 
 @app.route("/blog_post/delete_last_10", methods=['DELETE'])
 def delete_last_10():
     
     blog_posts = BlogPost.query.all()
 
-    s = stack.Stack()
-
+    s = []
     for post in blog_posts:
-        s.push(post)
+        s.append(post)
 
-    for _ in range(10):
+    for _ in range(10 if len(s) > 10 else len(s)):
         post_to_delete = s.pop()
-        db.session.delete(post_to_delete.data)
+        db.session.delete(post_to_delete)
         db.session.commit()
 
     return jsonify({"message" : "success"})
