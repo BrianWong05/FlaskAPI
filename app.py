@@ -131,13 +131,13 @@ def create_blog_post(user_id):
     return jsonify({"message": "new blog post created"}), 200
 
 
-@app.route("/blog_post/<string:blog_post_id>", methods=['GET'])
+@app.route("/blog_post/<blog_post_id>", methods=['GET'])
 def get_one_blog_posts(blog_post_id):
     blog_post = BlogPost.query.all()
     random.shuffle(blog_post)
 
     for post in blog_post:
-        if str(post.id) == blog_post_id:
+        if post.id == blog_post_id:
             returnPost = {
                 "id": post.id,
                 "title": post.title,
